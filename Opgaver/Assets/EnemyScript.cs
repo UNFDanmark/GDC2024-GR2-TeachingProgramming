@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyScript : MonoBehaviour
 {
+    public float cooldown;
     // Start is called before the first frame update
     void Start()
     {
