@@ -5,15 +5,20 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     public float speed;
+
+    private Rigidbody rb;
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Start");
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Update");
+        Vector3 movement = rb.velocity;
+        movement.x = Input.GetAxisRaw("Horizontal") * speed;
+        movement.z = Input.GetAxisRaw("Vertical") * speed;
+        rb.velocity = movement;
     }
 }
