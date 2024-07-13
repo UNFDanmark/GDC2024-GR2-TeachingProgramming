@@ -7,9 +7,10 @@ public class PlayerShooter : MonoBehaviour
     public float speed;
     private Transform tf;
     public GameObject bulletPrefab;
-    public float cooldown = 0.2f;
+    public float cooldownTime = 0.2f;
     private float cooldownLeft;
-        
+    public float bulletSpeed = 100;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -20,11 +21,12 @@ public class PlayerShooter : MonoBehaviour
     void Update()
     {
         cooldownLeft -= Time.deltaTime; 
-        
         if (Input.GetKey(KeyCode.Space) && cooldownLeft <= 0)
         {
-            Destroy(Instantiate(bulletPrefab,transform.position, Quaternion.identity), 5);
-            cooldownLeft = cooldown;
+            GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+            Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
+            bulletRb.velocity = tf.forward * bulletSpeed;
+            cooldownLeft = cooldownTime;
         }
         
         tf.Rotate(0,Input.GetAxisRaw("TurnAround") * speed,0);
