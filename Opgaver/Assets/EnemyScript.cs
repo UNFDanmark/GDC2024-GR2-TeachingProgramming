@@ -10,6 +10,7 @@ public class EnemyScript : MonoBehaviour
     public float cooldown;
     private NavMeshAgent agent;
     private GameObject player;
+    public Animator animator;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +23,7 @@ public class EnemyScript : MonoBehaviour
     void Update()
     {
         agent.destination = player.transform.position;
+        animator.SetFloat("Speed", agent.velocity.magnitude);
     }
 
     private void OnCollisionEnter(Collision other)

@@ -10,11 +10,14 @@ public class PlayerShooter : MonoBehaviour
     public float cooldownTime = 0.2f;
     private float cooldownLeft;
     public float bulletSpeed = 100;
+    public Animator animator;
+    AudioSource audioSource;
     
     // Start is called before the first frame update
     void Start()
     {
         tf = GetComponent<Transform>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -27,7 +30,11 @@ public class PlayerShooter : MonoBehaviour
             Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
             bulletRb.velocity = tf.forward * bulletSpeed;
             cooldownLeft = cooldownTime;
-        }
+            
+            animator.SetTrigger("Shoot");
+            audioSource.Play();
+                
+        }   
         
         tf.Rotate(0,Input.GetAxisRaw("TurnAround") * speed,0);
     }
